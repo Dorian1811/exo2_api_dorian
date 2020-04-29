@@ -25,12 +25,14 @@
                 text-align: center;
             }
             .forecast{
-                display: flex;
-                flex-direction: column;
-            }
-            .forecast1{
-                display: flex;
-                flex-direction: column;
+                text-align: center;
+                border-top: 1px solid grey;
+                border-right: 1px solid black;
+                border-bottom: 1px solid grey;
+                border-left: 1px solid grey;
+                width: 40%;
+                margin: auto; 
+                padding-left: 10px;
             }
         </style>
     </head>
@@ -46,6 +48,7 @@
         <div class="todaysWeather">
     
         </div>
+
         
         <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
         <script src="js/script.js"></script>

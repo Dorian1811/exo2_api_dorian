@@ -7,6 +7,9 @@ function removeOverlay(){
 }
 
 function escapeHtml(text) {
+
+    text = text.toString();
+
     var map = {
       '&': '&amp;',
       '<': '&lt;',
@@ -71,12 +74,12 @@ $('button').click(function(e){
                 $('.todaysWeather').append('<p>Pression barométrique : '+data.current_condition['pressure']+' hPa</p>');
 
 
-                $('.todaysWeather').after('<div class="forecast" style="border-top: 1px solid grey; border-right: 1px solid black; border-bottom: 1px solid grey; border-left: 1px solid grey; width: 25%; padding-left: 10px;"></div>');
+                $('.todaysWeather').after('<div class="forecast"></div>');
 
                 $('.forecast').append('<p style="padding-top: 25px; font-weight: bold; ">'+data.fcst_day_1['day_long']+' ('+data.fcst_day_1['date']+')</div>');
                 $('.forecast').append('<p style="padding-bottom: 20px;">'+data.fcst_day_1['condition']+'<img src='+data.fcst_day_1['icon']+'></img></p>');
-                $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_1['tmin']+' °C à '+data.fcst_day_1['tmax']+'°C</p>');     
-                
+                $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_1['tmin']+' °C à '+data.fcst_day_1['tmax']+'°C</p>');
+
                 $('.forecast').append('<p style="padding-top: 25px; font-weight: bold ">'+data.fcst_day_2['day_long']+' ('+data.fcst_day_2['date']+')</div>');
                 $('.forecast').append('<p style="padding-bottom: 20px;">'+data.fcst_day_2['condition']+'<img src='+data.fcst_day_2['icon']+'></img></p>');
                 $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_2['tmin']+' °C à '+data.fcst_day_2['tmax']+'°C</p>');
