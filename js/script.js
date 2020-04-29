@@ -23,6 +23,8 @@ $('button').click(function(e){
 
     e.preventDefault();
 
+    setOverlay();
+
     $('.todaysWeather').append('<h1>Météo actuelle sur votre position :</h1>');
 
     // Options de la geolocalisation
@@ -43,6 +45,8 @@ $('button').click(function(e){
         } else {
             alert('Problème inconnu');
         }
+
+        removeOverlay();
     }
 
     // Fonction qui sera appelée si la localisation a reussi (p contient les coordonnées de localisation)
@@ -69,24 +73,27 @@ $('button').click(function(e){
 
                 $('.todaysWeather').after('<div class="forecast" style="border-top: 1px solid grey; border-right: 1px solid black; border-bottom: 1px solid grey; border-left: 1px solid grey; width: 25%; padding-left: 10px;"></div>');
 
-                $('.forecast').append('<p style="padding-top: 25px; font-weight: bold">'+data.fcst_day_1['day_long']+' ('+data.fcst_day_1['date']+')</div>');
+                $('.forecast').append('<p style="padding-top: 25px; font-weight: bold; ">'+data.fcst_day_1['day_long']+' ('+data.fcst_day_1['date']+')</div>');
                 $('.forecast').append('<p style="padding-bottom: 20px;">'+data.fcst_day_1['condition']+'<img src='+data.fcst_day_1['icon']+'></img></p>');
-                $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_1['tmin']+' °C à '+data.fcst_day_1['tmax']+'°C</p>');        
+                $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_1['tmin']+' °C à '+data.fcst_day_1['tmax']+'°C</p>');     
                 
-                $('.forecast').append('<p style="padding-top: 25px; font-weight: bold">'+data.fcst_day_2['day_long']+' ('+data.fcst_day_2['date']+')</div>');
+                $('.forecast').append('<p style="padding-top: 25px; font-weight: bold ">'+data.fcst_day_2['day_long']+' ('+data.fcst_day_2['date']+')</div>');
                 $('.forecast').append('<p style="padding-bottom: 20px;">'+data.fcst_day_2['condition']+'<img src='+data.fcst_day_2['icon']+'></img></p>');
                 $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_2['tmin']+' °C à '+data.fcst_day_2['tmax']+'°C</p>');
+
+                $('.forecast').append('<p style="padding-top: 25px; font-weight: bold ">'+data.fcst_day_3['day_long']+' ('+data.fcst_day_3['date']+')</div>');
+                $('.forecast').append('<p style="padding-bottom: 20px;">'+data.fcst_day_3['condition']+'<img src='+data.fcst_day_3['icon']+'></img></p>');
+                $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_3['tmin']+' °C à '+data.fcst_day_3['tmax']+'°C</p>');
+
+                $('.forecast').append('<p style="padding-top: 25px; font-weight: bold ">'+data.fcst_day_4['day_long']+' ('+data.fcst_day_4['date']+')</div>');
+                $('.forecast').append('<p style="padding-bottom: 20px;">'+data.fcst_day_4['condition']+'<img src='+data.fcst_day_4['icon']+'></img></p>');
+                $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_4['tmin']+' °C à '+data.fcst_day_4['tmax']+'°C</p>');
 
                 //for(let i=0; i<4; i++){}
 
                 },
                 error: function(){
                     $('body').prepend('<p class="error" style="color:red">Problème de connexion</p>');
-                },
-                beforeSend: function(){
-    
-                    setOverlay();
-    
                 },
                 complete: function(){
     

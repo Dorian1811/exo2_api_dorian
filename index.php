@@ -24,6 +24,14 @@
             .todaysWeather{
                 text-align: center;
             }
+            .forecast{
+                display: flex;
+                flex-direction: column;
+            }
+            .forecast1{
+                display: flex;
+                flex-direction: column;
+            }
         </style>
     </head>
     <body>
@@ -38,7 +46,6 @@
         <div class="todaysWeather">
     
         </div>
-        
         
         <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
         <script src="js/script.js"></script>
