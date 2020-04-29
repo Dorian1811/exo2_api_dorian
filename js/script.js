@@ -6,12 +6,25 @@ function removeOverlay(){
     $('.overlay').remove();
 }
 
+function escapeHtml(text) {
+    var map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+  
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
 
 // Si le bouton est cliqué
 $('button').click(function(e){
 
     e.preventDefault();
-                
+
+    $('.todaysWeather').append('<h1>Météo actuelle sur votre position :</h1>');
+
     // Options de la geolocalisation
     let options = {
         enableHighAccuracy: true,       // Activation de la haute précision
@@ -44,18 +57,27 @@ $('button').click(function(e){
             type:'GET',
             url: 'https://www.prevision-meteo.ch/services/json/lat='+ latitude +'lng='+ longitude,
             dataType: 'json',
-            data : 'city_info',
-            success: function(p){
-                
-                $('.todaysWeather').append('<p>'+p.current_condition['condition']+'<img src='+p.current_condition['icon']+'></img></p>');
-                $('.todaysWeather').append('<p>Lever de soleil : '+p.city_info['sunrise']+' / Coucher de soleil : '+p.city_info['sunset']+'</p>');
-                $('.todaysWeather').append('<p>Température : '+p.current_condition['tmp']+' °C</p>');
-                $('.todaysWeather').append('<p>Humidité : '+p.current_condition['humidity']+' %</p>');
-                $('.todaysWeather').append('<p>Vent : '+p.current_condition['wnd_spd']+'km/h, Direction '+p.current_condition['wnd_dir']+'</p>');
-                $('.todaysWeather').append('<p>Pression barométrique : '+p.current_condition['pressure']+' hPa</p>');
-                    
-                    
+            success: function(data){
 
+                $('.todaysWeather').append('<p>'+data.current_condition['condition']+'<img src='+data.current_condition['icon']+'></img></p>');
+                $('.todaysWeather').append('<p>Lever de soleil : '+data.city_info['sunrise']+' / Coucher de soleil : '+data.city_info['sunset']+'</p>');
+                $('.todaysWeather').append('<p>Température : '+data.current_condition['tmp']+' °C</p>');
+                $('.todaysWeather').append('<p>Humidité : '+data.current_condition['humidity']+' %</p>');
+                $('.todaysWeather').append('<p>Vent : '+data.current_condition['wnd_spd']+'km/h, Direction '+data.current_condition['wnd_dir']+'</p>');
+                $('.todaysWeather').append('<p>Pression barométrique : '+data.current_condition['pressure']+' hPa</p>');
+
+
+                $('.todaysWeather').after('<div class="forecast" style="border-top: 1px solid grey; border-right: 1px solid black; border-bottom: 1px solid grey; border-left: 1px solid grey; width: 25%; padding-left: 10px;"></div>');
+
+                $('.forecast').append('<p style="padding-top: 25px; font-weight: bold">'+data.fcst_day_1['day_long']+' ('+data.fcst_day_1['date']+')</div>');
+                $('.forecast').append('<p style="padding-bottom: 20px;">'+data.fcst_day_1['condition']+'<img src='+data.fcst_day_1['icon']+'></img></p>');
+                $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_1['tmin']+' °C à '+data.fcst_day_1['tmax']+'°C</p>');        
+                
+                $('.forecast').append('<p style="padding-top: 25px; font-weight: bold">'+data.fcst_day_2['day_long']+' ('+data.fcst_day_2['date']+')</div>');
+                $('.forecast').append('<p style="padding-bottom: 20px;">'+data.fcst_day_2['condition']+'<img src='+data.fcst_day_2['icon']+'></img></p>');
+                $('.forecast').append('<p style="padding-bottom: 20px;">Température : de '+data.fcst_day_2['tmin']+' °C à '+data.fcst_day_2['tmax']+'°C</p>');
+
+                //for(let i=0; i<4; i++){}
 
                 },
                 error: function(){

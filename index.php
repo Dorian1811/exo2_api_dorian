@@ -21,6 +21,9 @@
                 justify-content: center;
                 align-items: center;
             }
+            .todaysWeather{
+                text-align: center;
+            }
         </style>
     </head>
     <body>
@@ -35,6 +38,7 @@
         <div class="todaysWeather">
     
         </div>
+        
         
         <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
         <script src="js/script.js"></script>
