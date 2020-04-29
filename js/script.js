@@ -1,5 +1,16 @@
+function setOverlay(){
+    $('body').append(`<div class="overlay"><img src="img/ajax-loader.svg"</img></div>`);
+}
+
+function removeOverlay(){
+    $('.overlay').remove();
+}
+
+
 // Si le bouton est cliqué
-$('button').click(function(){
+$('button').click(function(e){
+
+    e.preventDefault();
                 
     // Options de la geolocalisation
     let options = {
@@ -28,6 +39,39 @@ $('button').click(function(){
         let longitude = p.coords.longitude;
 
         console.log('Votre latitude actuelle est ' + latitude + ' et votre longitude est ' + longitude);
+
+        $.ajax({
+            type:'GET',
+            url: 'https://www.prevision-meteo.ch/services/json/lat='+ latitude +'lng='+ longitude,
+            dataType: 'json',
+            data : 'city_info',
+            success: function(p){
+                
+                $('.todaysWeather').append('<p>'+p.current_condition['condition']+'<img src='+p.current_condition['icon']+'></img></p>');
+                $('.todaysWeather').append('<p>Lever de soleil : '+p.city_info['sunrise']+' / Coucher de soleil : '+p.city_info['sunset']+'</p>');
+                $('.todaysWeather').append('<p>Température : '+p.current_condition['tmp']+' °C</p>');
+                $('.todaysWeather').append('<p>Humidité : '+p.current_condition['humidity']+' %</p>');
+                $('.todaysWeather').append('<p>Vent : '+p.current_condition['wnd_spd']+'km/h, Direction '+p.current_condition['wnd_dir']+'</p>');
+                $('.todaysWeather').append('<p>Pression barométrique : '+p.current_condition['pressure']+' hPa</p>');
+                    
+                    
+
+
+                },
+                error: function(){
+                    $('body').prepend('<p class="error" style="color:red">Problème de connexion</p>');
+                },
+                beforeSend: function(){
+    
+                    setOverlay();
+    
+                },
+                complete: function(){
+    
+                    removeOverlay();
+    
+            }
+        });
 
     }
 
